@@ -24,10 +24,16 @@ app.get("/students", (req, res) => {
 app.get("/students/:id", (req, res) => {
   const { id } = req.params;
   const { students } = studentsData;
-  const student = students.find((e) => e.id === id);
-  student
-    ? res.status(200).json({ data: student })
-    : res.status(404).json({ error: "Unable to locate student" });
+  try {
+    const student = students.find((e) => e.id === id);
+    student
+      ? res.status(200).json({ data: student })
+      : res.status(404).json({
+          error: `Could not located student with requested id of ${id}`,
+        });
+  } catch (error) {
+    return error;
+  }
 });
 
 module.exports = app;
