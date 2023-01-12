@@ -1,9 +1,11 @@
 const { response } = require("express");
 const express = require("express");
+const cors = require("cors");
 
 const studentsData = require("./studentsData.json");
 
-const app = express();
+const app = express();      
+app.use(cors());
 
 //Healthcheck
 app.get("/", (req, res) => {
